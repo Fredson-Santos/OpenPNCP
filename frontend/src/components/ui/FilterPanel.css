@@ -1,9 +1,14 @@
 .filter-panel {
-  border: 1px solid var(--panel-border);
+  border: 1px solid var(--border-hairline);
   border-radius: var(--radius-lg);
-  background: var(--panel-bg-solid);
+  background: var(--bg-carbon);
   margin-bottom: 1.25rem;
   overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.filter-panel:hover {
+  border-color: var(--border-strong);
 }
 
 .filter-panel__toggle {
@@ -14,7 +19,7 @@
   padding: 0.75rem 1.25rem;
   border: none;
   background: transparent;
-  color: var(--text-secondary);
+  color: var(--text-ash);
   font-size: 0.8125rem;
   font-weight: 500;
   font-family: inherit;
@@ -23,7 +28,7 @@
 }
 
 .filter-panel__toggle:hover {
-  color: var(--text-primary);
+  color: var(--text-paper);
 }
 
 .filter-panel__count {
@@ -32,16 +37,18 @@
   justify-content: center;
   min-width: 18px;
   height: 18px;
-  border-radius: 100px;
-  background: var(--accent-blue);
-  color: white;
+  border-radius: var(--radius-full);
+  background: var(--accent-electric);
+  color: var(--accent-electric-fg);
+  font-family: var(--font-mono);
   font-size: 0.625rem;
   font-weight: 700;
+  padding: 0 4px;
 }
 
 .filter-panel__body {
   padding: 0 1.25rem 1.25rem;
-  border-top: 1px solid var(--panel-border);
+  border-top: 1px solid var(--border-hairline);
   animation: fadeInUp 0.2s ease-out;
 }
 
@@ -66,11 +73,12 @@
 
 .filter-panel__field label {
   display: block;
+  font-family: var(--font-mono);
   font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-weight: 500;
+  color: var(--text-ash);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.071em;
   margin-bottom: 0.375rem;
 }
 
@@ -80,5 +88,5 @@
   gap: 0.75rem;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--panel-border);
+  border-top: 1px solid var(--border-hairline);
 }

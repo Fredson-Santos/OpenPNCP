@@ -16,30 +16,33 @@ export const Pagination = ({ page, totalPages, onPageChange }) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: '0.375rem',
+      gap: '0.25rem',
       marginTop: '1.5rem',
+      fontFamily: 'var(--font-mono)',
+      fontSize: '0.75rem',
     }}>
       <button
-        className="btn btn-ghost btn-sm"
+        className="btn btn-outline btn-sm"
         onClick={() => onPageChange(page - 1)}
         disabled={page <= 1}
+        aria-label="Página anterior"
       >
-        <ChevronLeft size={16} />
+        <ChevronLeft size={14} />
       </button>
 
       {start > 1 && (
         <>
-          <button className="btn btn-ghost btn-sm" onClick={() => onPageChange(1)}>1</button>
-          {start > 2 && <span style={{ color: 'var(--text-tertiary)', padding: '0 0.25rem' }}>…</span>}
+          <button className="btn btn-outline btn-sm" onClick={() => onPageChange(1)}>1</button>
+          {start > 2 && <span style={{ color: 'var(--text-fog)', padding: '0 0.25rem' }}>…</span>}
         </>
       )}
 
       {visiblePages.map((p) => (
         <button
           key={p}
-          className={`btn btn-sm ${p === page ? 'btn-primary' : 'btn-ghost'}`}
+          className={`btn btn-sm ${p === page ? 'btn-primary' : 'btn-outline'}`}
           onClick={() => onPageChange(p)}
-          style={p === page ? { minWidth: 36 } : { minWidth: 36 }}
+          style={{ minWidth: 32, padding: '0.3rem 0.5rem' }}
         >
           {p}
         </button>
@@ -47,17 +50,18 @@ export const Pagination = ({ page, totalPages, onPageChange }) => {
 
       {end < totalPages && (
         <>
-          {end < totalPages - 1 && <span style={{ color: 'var(--text-tertiary)', padding: '0 0.25rem' }}>…</span>}
-          <button className="btn btn-ghost btn-sm" onClick={() => onPageChange(totalPages)}>{totalPages}</button>
+          {end < totalPages - 1 && <span style={{ color: 'var(--text-fog)', padding: '0 0.25rem' }}>…</span>}
+          <button className="btn btn-outline btn-sm" onClick={() => onPageChange(totalPages)}>{totalPages}</button>
         </>
       )}
 
       <button
-        className="btn btn-ghost btn-sm"
+        className="btn btn-outline btn-sm"
         onClick={() => onPageChange(page + 1)}
         disabled={page >= totalPages}
+        aria-label="Próxima página"
       >
-        <ChevronRight size={16} />
+        <ChevronRight size={14} />
       </button>
     </div>
   );

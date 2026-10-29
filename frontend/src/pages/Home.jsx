@@ -21,16 +21,20 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: 'var(--panel-bg-solid)',
-      border: '1px solid var(--panel-border)',
-      borderRadius: 'var(--radius-md)',
-      padding: '0.625rem 0.875rem',
-      fontSize: '0.8125rem',
+      background: 'var(--bg-obsidian)',
+      border: '1px solid var(--border-hairline)',
+      borderRadius: 'var(--radius-sm)',
+      padding: '0.5rem 0.75rem',
+      fontSize: '0.75rem',
+      boxShadow: 'var(--shadow-md)',
+      fontFamily: 'var(--font-mono)',
     }}>
-      <div style={{ color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
+      <div style={{ color: 'var(--text-ash)', marginBottom: '0.25rem' }}>
         {label ? label.split('-').reverse().join('/') : ''}
       </div>
-      <div style={{ fontWeight: 600 }}>{payload[0].value.toLocaleString('pt-BR')} licitações</div>
+      <div style={{ fontWeight: 600, color: 'var(--accent-electric)' }}>
+        {payload[0].value.toLocaleString('pt-BR')} licitações
+      </div>
     </div>
   );
 };
@@ -67,14 +71,23 @@ export const Home = () => {
 
   return (
     <div>
-      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
+          <div className="eyebrow">Observatório // Panorama Nacional</div>
           <h1>Painel Geral</h1>
-          <p>Visão macro das licitações públicas no Brasil.</p>
+          <p>Visão macro das licitações públicas no Brasil com análise contínua de integridade.</p>
         </div>
         {stats?.ultima_atualizacao && (
-          <div style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-            Última atualização: {new Date(stats.ultima_atualizacao).toLocaleDateString('pt-BR')}
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            color: 'var(--text-ash)',
+            fontSize: '0.75rem',
+            background: 'var(--bg-carbon)',
+            padding: '0.35rem 0.75rem',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--border-hairline)',
+          }}>
+            Última sync: {new Date(stats.ultima_atualizacao).toLocaleDateString('pt-BR')}
           </div>
         )}
       </div>
@@ -86,21 +99,21 @@ export const Home = () => {
       ) : (
         <div className="grid grid-cols-3" style={{ marginBottom: '1.5rem' }}>
           <StatCard
-            icon={<FileText size={20} />}
+            icon={<FileText size={18} />}
             label="Licitações"
             value={stats?.total_licitacoes?.toLocaleString('pt-BR') ?? '—'}
             detail="total cadastradas"
             accentColor="blue"
           />
           <StatCard
-            icon={<DollarSign size={20} />}
+            icon={<DollarSign size={18} />}
             label="Valor Total"
             value={stats ? formatCurrency(stats.valor_total) : '—'}
             detail="em licitações"
             accentColor="green"
           />
           <StatCard
-            icon={<Building2 size={20} />}
+            icon={<Building2 size={18} />}
             label="Órgãos Ativos"
             value={stats?.orgaos_ativos?.toLocaleString('pt-BR') ?? '—'}
             detail="publicando editais"
@@ -112,41 +125,46 @@ export const Home = () => {
       <div className="grid grid-cols-2" style={{ marginBottom: '1.5rem' }}>
         <Card variant="elevated">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600 }}>Evolução Diária</h3>
-            <span className="text-xs text-secondary">Licitações publicadas por dia</span>
+            <div>
+              <div className="eyebrow" style={{ marginBottom: '0.125rem' }}>Série Histórica</div>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-paper)', letterSpacing: '-0.02em' }}>
+                Evolução Diária
+              </h3>
+            </div>
+            <span className="font-mono text-xs text-secondary">Últimos 30 dias</span>
           </div>
           <div style={{ width: '100%', height: 240 }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={evolucao.slice(-30)} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorQtd" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--accent-blue)" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="var(--accent-blue)" stopOpacity={0} />
+                    <stop offset="5%" stopColor="var(--accent-electric)" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="var(--accent-electric)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--panel-border)" />
+                <CartesianGrid strokeDasharray="2 2" stroke="var(--border-hairline)" vertical={false} />
                 <XAxis
                   dataKey="data"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: 'var(--text-tertiary)', fontSize: 11 }}
+                  tick={{ fill: 'var(--text-fog)', fontSize: 10, fontFamily: 'var(--font-mono)' }}
                   tickFormatter={(val) => {
                     if (!val) return '';
-                    const [y, m, d] = val.split('-');
+                    const [, m, d] = val.split('-');
                     return `${d}/${m}`;
                   }}
                 />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: 'var(--text-tertiary)', fontSize: 11 }}
+                  tick={{ fill: 'var(--text-fog)', fontSize: 10, fontFamily: 'var(--font-mono)' }}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Area
                   type="monotone"
                   dataKey="quantidade"
-                  stroke="var(--accent-blue)"
-                  strokeWidth={2}
+                  stroke="var(--accent-electric)"
+                  strokeWidth={1.5}
                   fill="url(#colorQtd)"
                 />
               </AreaChart>
@@ -156,34 +174,43 @@ export const Home = () => {
 
         <Card variant="elevated">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600 }}>Top Estados</h3>
-            <span className="text-xs text-secondary">por nº de licitações</span>
+            <div>
+              <div className="eyebrow" style={{ marginBottom: '0.125rem' }}>Distribuição Regional</div>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-paper)', letterSpacing: '-0.02em' }}>
+                Top Estados
+              </h3>
+            </div>
+            <span className="font-mono text-xs text-secondary">por volume de editais</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
             {rankEstados.map((est, idx) => (
               <div key={est.uf}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.375rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-                    <MapPin size={14} style={{ color: 'var(--text-tertiary)' }} />
-                    <span style={{ fontWeight: 500, fontSize: '0.875rem' }}>{est.uf}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.375rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <MapPin size={13} style={{ color: idx === 0 ? 'var(--accent-electric)' : 'var(--text-fog)' }} />
+                    <span style={{ fontWeight: 600, fontSize: '0.8125rem', fontFamily: 'var(--font-mono)', color: 'var(--text-bone)' }}>
+                      {est.uf}
+                    </span>
                   </div>
-                  <span className="text-sm text-secondary">{est.total_licitacoes.toLocaleString('pt-BR')}</span>
+                  <span className="font-mono text-xs text-secondary">
+                    {est.total_licitacoes.toLocaleString('pt-BR')} editais
+                  </span>
                 </div>
                 <div style={{
-                  height: 6,
-                  borderRadius: 3,
-                  background: 'var(--panel-border)',
+                  height: 4,
+                  borderRadius: 2,
+                  background: 'var(--bg-subtle)',
                   overflow: 'hidden',
                 }}>
                   <div style={{
                     height: '100%',
                     width: `${(est.total_licitacoes / maxEstado) * 100}%`,
-                    borderRadius: 3,
+                    borderRadius: 2,
                     background: idx === 0
-                      ? 'var(--gradient-primary)'
-                      : 'var(--accent-blue)',
-                    opacity: 1 - idx * 0.12,
-                    transition: 'width 0.6s ease-out',
+                      ? 'var(--accent-electric)'
+                      : 'var(--text-ash)',
+                    opacity: 1 - idx * 0.15,
+                    transition: 'width 0.4s ease-out',
                   }} />
                 </div>
               </div>

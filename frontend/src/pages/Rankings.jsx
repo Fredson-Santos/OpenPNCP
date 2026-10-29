@@ -6,62 +6,70 @@ import { SkeletonRow } from '../components/ui/Skeleton';
 import { EmptyState } from '../components/ui/EmptyState';
 import {
   Building2, Users, MapPin, Layers,
-  Trophy, Medal
+  Trophy
 } from 'lucide-react';
 
 const formatCurrency = (val) =>
   new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
 
-const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
+const MEDAL_COLORS = ['#e4f222', '#e5e5e6', '#d0d6e0'];
 
 const RankRow = ({ index, label, sublabel, value, displayValue, maxValue }) => {
   const pct = maxValue > 0 ? (value / maxValue) * 100 : 0;
 
   return (
     <div style={{
-      padding: '0.875rem 0',
-      borderBottom: '1px solid var(--panel-border)',
-      animation: 'fadeInUp 0.3s ease-out both',
-      animationDelay: `${index * 0.04}s`,
+      padding: '0.75rem 0',
+      borderBottom: '1px solid var(--border-hairline)',
+      animation: 'fadeInUp 0.25s ease-out both',
+      animationDelay: `${index * 0.03}s`,
     }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.375rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0 }}>
           {index < 3 ? (
             <div style={{
-              width: 28, height: 28, borderRadius: '50%',
+              width: 26, height: 26, borderRadius: 'var(--radius-xs)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: `${MEDAL_COLORS[index]}15`,
+              background: index === 0 ? 'rgba(228, 242, 34, 0.12)' : 'var(--bg-obsidian)',
+              border: `1px solid ${index === 0 ? 'rgba(228, 242, 34, 0.3)' : 'var(--border-hairline)'}`,
+              color: MEDAL_COLORS[index],
               flexShrink: 0,
             }}>
-              <Trophy size={14} style={{ color: MEDAL_COLORS[index] }} />
+              <Trophy size={13} />
             </div>
           ) : (
             <div style={{
-              width: 28, height: 28, borderRadius: '50%',
+              width: 26, height: 26, borderRadius: 'var(--radius-xs)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: 'var(--panel-border)',
-              color: 'var(--text-tertiary)',
-              fontSize: '0.75rem', fontWeight: 700,
+              background: 'var(--bg-carbon)',
+              border: '1px solid var(--border-hairline)',
+              color: 'var(--text-fog)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.6875rem', fontWeight: 600,
               flexShrink: 0,
             }}>
               {index + 1}
             </div>
           )}
           <div style={{ minWidth: 0 }}>
-            <div style={{ fontWeight: 500, fontSize: '0.875rem' }} className="truncate">{label}</div>
-            {sublabel && <div className="text-xs text-secondary">{sublabel}</div>}
+            <div style={{ fontWeight: 500, fontSize: '0.8125rem', color: 'var(--text-paper)' }} className="truncate">
+              {label}
+            </div>
+            {sublabel && <div className="font-mono text-xs text-secondary">{sublabel}</div>}
           </div>
         </div>
-        <span style={{ fontWeight: 600, fontSize: '0.875rem', flexShrink: 0, marginLeft: '1rem' }}>{displayValue || value}</span>
+        <span className="font-mono" style={{ fontWeight: 600, fontSize: '0.8125rem', color: index === 0 ? 'var(--accent-electric)' : 'var(--text-paper)', flexShrink: 0, marginLeft: '1rem' }}>
+          {displayValue || value}
+        </span>
       </div>
-      <div style={{ height: 4, borderRadius: 2, background: 'var(--panel-border)', overflow: 'hidden' }}>
+      <div style={{ height: 3, borderRadius: 1.5, background: 'var(--bg-subtle)', overflow: 'hidden' }}>
         <div style={{
           height: '100%',
           width: `${pct}%`,
-          borderRadius: 2,
-          background: index < 3 ? 'var(--gradient-primary)' : 'var(--accent-blue)',
-          opacity: Math.max(0.4, 1 - index * 0.08),
-          transition: 'width 0.8s ease-out',
+          borderRadius: 1.5,
+          background: index === 0 ? 'var(--accent-electric)' : 'var(--text-ash)',
+          opacity: Math.max(0.3, 1 - index * 0.07),
+          transition: 'width 0.5s ease-out',
         }} />
       </div>
     </div>
@@ -106,35 +114,37 @@ export const Rankings = () => {
   ];
 
   const renderLoading = () => (
-    Array.from({ length: 5 }).map((_, i) => <SkeletonRow key={i} />)
+    Array.from({ length: 5 }).map((_, i) => <SkeletonRow key={i} columns={2} />)
   );
 
   return (
     <div>
       <div className="page-header">
+        <div className="eyebrow">Métricas // Liderança & Volume</div>
         <h1>Rankings</h1>
-        <p>Os maiores compradores, fornecedores e tendências do governo.</p>
+        <p>Panorama analítico dos maiores compradores, fornecedores e tendências de contratação pública.</p>
       </div>
 
       <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {activeTab === 'orgaos' && (
-        <Card style={{ animation: 'fadeInUp 0.3s ease-out' }}>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
+          <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Administração Pública</div>
+          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.25rem', color: 'var(--text-paper)' }}>
             Top Órgãos Compradores
           </h3>
-          <p className="text-xs text-secondary" style={{ marginBottom: '1rem' }}>
-            Ranking por número total de licitações publicadas
+          <p className="font-mono text-xs text-secondary" style={{ marginBottom: '1rem' }}>
+            Classificação por quantidade de editais emitidos
           </p>
           {loading ? renderLoading() : orgaos.length === 0 ? (
-            <EmptyState title="Sem dados" />
+            <EmptyState title="Sem dados de órgãos" />
           ) : (
             orgaos.map((org, idx) => (
               <RankRow
                 key={org.orgao_id}
                 index={idx}
                 label={org.nome}
-                sublabel={`${org.total_licitacoes.toLocaleString('pt-BR')} licitações`}
+                sublabel={`${org.total_licitacoes.toLocaleString('pt-BR')} licitações registradas`}
                 value={org.total_licitacoes}
                 displayValue={org.total_licitacoes.toLocaleString('pt-BR')}
                 maxValue={orgaos[0]?.total_licitacoes || 1}
@@ -145,15 +155,16 @@ export const Rankings = () => {
       )}
 
       {activeTab === 'fornecedores' && (
-        <Card style={{ animation: 'fadeInUp 0.3s ease-out' }}>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
+          <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Mercado Privado</div>
+          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.25rem', color: 'var(--text-paper)' }}>
             Top Fornecedores por Volume
           </h3>
-          <p className="text-xs text-secondary" style={{ marginBottom: '1rem' }}>
-            Ranking por volume total contratado (R$)
+          <p className="font-mono text-xs text-secondary" style={{ marginBottom: '1rem' }}>
+            Classificação por montante total contratado (R$)
           </p>
           {loading ? renderLoading() : fornecedores.length === 0 ? (
-            <EmptyState title="Sem dados" />
+            <EmptyState title="Sem dados de fornecedores" />
           ) : (
             fornecedores.map((forn, idx) => (
               <RankRow
@@ -171,22 +182,23 @@ export const Rankings = () => {
       )}
 
       {activeTab === 'estados' && (
-        <Card style={{ animation: 'fadeInUp 0.3s ease-out' }}>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
+          <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Federação</div>
+          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.25rem', color: 'var(--text-paper)' }}>
             Ranking por Estado (UF)
           </h3>
-          <p className="text-xs text-secondary" style={{ marginBottom: '1rem' }}>
-            Estados com mais licitações publicadas
+          <p className="font-mono text-xs text-secondary" style={{ marginBottom: '1rem' }}>
+            Unidades Federativas com maior volume de editais
           </p>
           {loading ? renderLoading() : estados.length === 0 ? (
-            <EmptyState title="Sem dados" />
+            <EmptyState title="Sem dados regionais" />
           ) : (
             estados.map((est, idx) => (
               <RankRow
                 key={est.uf}
                 index={idx}
                 label={est.uf}
-                sublabel={`${est.total_licitacoes.toLocaleString('pt-BR')} licitações`}
+                sublabel={`${est.total_licitacoes.toLocaleString('pt-BR')} editais`}
                 value={est.total_licitacoes}
                 displayValue={est.total_licitacoes.toLocaleString('pt-BR')}
                 maxValue={estados[0]?.total_licitacoes || 1}
@@ -197,15 +209,16 @@ export const Rankings = () => {
       )}
 
       {activeTab === 'modalidades' && (
-        <Card style={{ animation: 'fadeInUp 0.3s ease-out' }}>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
+          <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Procedimentos Legais</div>
+          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.25rem', color: 'var(--text-paper)' }}>
             Ranking por Modalidade
           </h3>
-          <p className="text-xs text-secondary" style={{ marginBottom: '1rem' }}>
-            Modalidades de licitação mais utilizadas
+          <p className="font-mono text-xs text-secondary" style={{ marginBottom: '1rem' }}>
+            Modalidades de contratação mais frequentes
           </p>
           {loading ? renderLoading() : modalidades.length === 0 ? (
-            <EmptyState title="Sem dados" />
+            <EmptyState title="Sem dados de modalidades" />
           ) : (
             modalidades.map((mod, idx) => (
               <RankRow

@@ -6,13 +6,13 @@
 .timeline__item {
   display: flex;
   gap: 1rem;
-  animation: fadeInUp 0.3s ease-out both;
+  animation: fadeInUp 0.25s ease-out both;
 }
 
-.timeline__item:nth-child(2) { animation-delay: 0.05s; }
-.timeline__item:nth-child(3) { animation-delay: 0.1s; }
-.timeline__item:nth-child(4) { animation-delay: 0.15s; }
-.timeline__item:nth-child(5) { animation-delay: 0.2s; }
+.timeline__item:nth-child(2) { animation-delay: 0.04s; }
+.timeline__item:nth-child(3) { animation-delay: 0.08s; }
+.timeline__item:nth-child(4) { animation-delay: 0.12s; }
+.timeline__item:nth-child(5) { animation-delay: 0.16s; }
 
 .timeline__marker {
   display: flex;
@@ -26,21 +26,22 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--text-tertiary);
-  border: 2px solid var(--panel-bg-solid);
+  background: var(--bg-carbon);
+  border: 1px solid var(--border-hairline);
   flex-shrink: 0;
   margin-top: 4px;
 }
 
 .timeline__dot--active {
-  background: var(--accent-blue);
-  box-shadow: 0 0 8px var(--accent-blue-glow);
+  background: var(--accent-electric);
+  border-color: var(--accent-electric);
+  box-shadow: 0 0 8px var(--accent-electric-glow);
 }
 
 .timeline__line {
-  width: 2px;
+  width: 1px;
   flex: 1;
-  background: var(--panel-border);
+  background: var(--border-hairline);
   margin: 4px 0;
 }
 
@@ -57,24 +58,27 @@
 }
 
 .timeline__date {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--text-ash);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.071em;
 }
 
 .timeline__status {
+  font-family: var(--font-mono);
   font-size: 0.6875rem;
-  padding: 0.125rem 0.5rem;
-  border-radius: 100px;
-  background: var(--accent-blue-bg);
-  color: var(--accent-blue);
-  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-obsidian);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-bone);
+  font-weight: 500;
 }
 
 .timeline__description {
-  font-size: 0.875rem;
-  color: var(--text-primary);
+  font-size: 0.8125rem;
+  color: var(--text-bone);
   line-height: 1.5;
 }

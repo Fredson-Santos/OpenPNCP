@@ -91,25 +91,39 @@ export const Licitacoes = () => {
   return (
     <div>
       <div className="page-header">
+        <div className="eyebrow">Repositório // Editais Oficiais</div>
         <h1>Licitações</h1>
-        <p>Pesquise e filtre licitações ativas em todo o país. {total > 0 && <span style={{ color: 'var(--accent-blue)' }}>{total.toLocaleString('pt-BR')} resultados</span>}</p>
+        <p>
+          Pesquise e monitore editais em todo o país com rastreabilidade detalhada.{' '}
+          {total > 0 && <span className="font-mono text-lime" style={{ fontWeight: 600 }}>{total.toLocaleString('pt-BR')} registros</span>}
+        </p>
       </div>
 
-      <Card style={{ marginBottom: '1rem', padding: '1rem 1.25rem' }}>
-        <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.75rem' }}>
+      <Card style={{ marginBottom: '1.25rem', padding: '0.875rem 1rem' }}>
+        <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.625rem' }}>
           <div style={{ flex: 1, position: 'relative' }}>
-            <Search size={18} style={{ position: 'absolute', left: '0.875rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }} />
+            <Search
+              size={15}
+              style={{
+                position: 'absolute',
+                left: '0.875rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'var(--text-fog)',
+                pointerEvents: 'none',
+              }}
+            />
             <input
               type="text"
               className="input"
-              placeholder="Buscar por objeto, órgão, número..."
-              style={{ paddingLeft: '2.75rem' }}
+              placeholder="Buscar por objeto, órgão ou número de controle..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              style={{ paddingLeft: '2.5rem' }}
             />
           </div>
-          <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? 'Buscando...' : 'Pesquisar'}
+          <button type="submit" className="btn btn-primary">
+            Buscar
           </button>
         </form>
       </Card>
@@ -121,64 +135,117 @@ export const Licitacoes = () => {
         onClear={handleClearFilters}
       />
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-        {loading ? (
-          Array.from({ length: 4 }).map((_, i) => <SkeletonRow key={i} />)
-        ) : licitacoes.length === 0 ? (
-          <Card><EmptyState title="Nenhuma licitação encontrada" description="Tente ajustar os filtros ou o termo de busca." /></Card>
-        ) : (
-          licitacoes.map((lic, idx) => (
-            <Link key={lic.id} to={`/licitacoes/${lic.id}`} style={{ textDecoration: 'none' }}>
-              <Card
-                variant="elevated"
-                style={{
-                  display: 'flex', flexDirection: 'column', gap: '0.75rem',
-                  animationDelay: `${idx * 0.03}s`,
-                  animation: 'fadeInUp 0.3s ease-out both',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', flexWrap: 'wrap' }}>
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                      <Building2 size={14} style={{ color: 'var(--text-tertiary)', flexShrink: 0 }} />
-                      <span style={{ fontWeight: 600, fontSize: '0.9375rem' }} className="truncate">{lic.orgao?.nome}</span>
+      <div className="table-container">
+        <table className="table">
+          <thead>
+            <tr>
+              <th style={{ width: '40%' }}>Objeto / Órgão</th>
+              <th>UF</th>
+              <th>Modalidade</th>
+              <th>Valor Estimado</th>
+              <th>Situação</th>
+              <th>Publicação</th>
+              <th style={{ width: 44 }}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {loading ? (
+              Array.from({ length: 5 }).map((_, i) => (
+                <SkeletonRow key={i} columns={7} />
+              ))
+            ) : licitacoes.length === 0 ? (
+              <tr>
+                <td colSpan={7} style={{ padding: 0 }}>
+                  <EmptyState />
+                </td>
+              </tr>
+            ) : (
+              licitacoes.map((lic) => (
+                <tr key={lic.id}>
+                  <td>
+                    <Link
+                      to={`/licitacoes/${lic.id}`}
+                      style={{
+                        display: 'block',
+                        fontWeight: 500,
+                        color: 'var(--text-paper)',
+                        marginBottom: '0.25rem',
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {lic.objeto}
+                    </Link>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.375rem',
+                      fontSize: '0.75rem',
+                      color: 'var(--text-ash)',
+                    }}>
+                      <Building2 size={12} style={{ color: 'var(--text-fog)' }} />
+                      <span className="truncate" style={{ maxWidth: 380 }}>{lic.orgao_nome}</span>
+                      {lic.numero_controle_pncp && (
+                        <span className="font-mono text-tertiary" style={{ fontSize: '0.6875rem' }}>
+                          • {lic.numero_controle_pncp}
+                        </span>
+                      )}
                     </div>
-                    <div style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
-                      {lic.numero_controle} {lic.modalidade && `• ${lic.modalidade}`}
+                  </td>
+                  <td>
+                    <span className="font-mono text-secondary" style={{ fontWeight: 600, fontSize: '0.75rem' }}>
+                      {lic.uf || '—'}
+                    </span>
+                  </td>
+                  <td>
+                    <span className="text-secondary" style={{ fontSize: '0.75rem' }}>
+                      {lic.modalidade_nome || '—'}
+                    </span>
+                  </td>
+                  <td>
+                    <span className="font-mono" style={{ fontWeight: 600, color: 'var(--text-paper)' }}>
+                      {lic.valor_total_estimado ? formatCurrency(lic.valor_total_estimado) : '—'}
+                    </span>
+                  </td>
+                  <td>
+                    <Badge color={SITUACAO_COLOR[lic.situacao_nome] || 'blue'}>
+                      {lic.situacao_nome || 'N/A'}
+                    </Badge>
+                  </td>
+                  <td>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.375rem',
+                      fontSize: '0.75rem',
+                      color: 'var(--text-ash)',
+                      fontFamily: 'var(--font-mono)',
+                    }}>
+                      <Calendar size={12} style={{ color: 'var(--text-fog)' }} />
+                      {formatDate(lic.data_publicacao_pncp)}
                     </div>
-                  </div>
-                  <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                    <div style={{ fontWeight: 700, color: lic.valor_estimado ? 'var(--accent-green)' : 'var(--text-tertiary)', fontSize: '0.9375rem' }}>
-                      {lic.valor_estimado ? formatCurrency(lic.valor_estimado) : 'Não informado'}
-                    </div>
-                    {lic.data_publicacao && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', justifyContent: 'flex-end', marginTop: '0.25rem' }}>
-                        <Calendar size={12} style={{ color: 'var(--text-tertiary)' }} />
-                        <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>{formatDate(lic.data_publicacao)}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem', lineHeight: 1.5 }} className="truncate">
-                  {lic.objeto}
-                </p>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  <Badge color={SITUACAO_COLOR[lic.situacao] || 'blue'}>{lic.situacao}</Badge>
-                  {lic.orgao?.uf && <Badge color="purple">{lic.orgao.uf}</Badge>}
-                  <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--accent-blue)', fontSize: '0.75rem' }}>
-                    <span>Ver detalhes</span>
-                    <ExternalLink size={12} />
-                  </div>
-                </div>
-              </Card>
-            </Link>
-          ))
-        )}
+                  </td>
+                  <td>
+                    <Link
+                      to={`/licitacoes/${lic.id}`}
+                      className="btn btn-ghost btn-sm"
+                      style={{ padding: '0.3rem', color: 'var(--text-fog)' }}
+                      aria-label="Ver detalhes"
+                    >
+                      <ExternalLink size={14} />
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
 
-      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+      />
     </div>
   );
 };

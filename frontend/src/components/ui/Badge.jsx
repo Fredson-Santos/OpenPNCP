@@ -7,11 +7,12 @@ const COLOR_MAP = {
   red: 'badge-red',
   orange: 'badge-orange',
   purple: 'badge-purple',
+  lime: 'badge-lime',
 };
 
 export const Badge = ({ children, color = 'blue', className, ...props }) => {
   return (
-    <span className={clsx('badge', COLOR_MAP[color], className)} {...props}>
+    <span className={clsx('badge', COLOR_MAP[color] || 'badge-blue', className)} {...props}>
       {children}
     </span>
   );
