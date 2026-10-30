@@ -12,64 +12,75 @@ import {
 const formatCurrency = (val) =>
   new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
 
-const MEDAL_COLORS = ['#e4f222', '#e5e5e6', '#d0d6e0'];
+const ROW_BAR_COLORS = ['#0084ff', '#38bdf8', '#0d9488', '#fbbf24'];
 
 const RankRow = ({ index, label, sublabel, value, displayValue, maxValue }) => {
   const pct = maxValue > 0 ? (value / maxValue) * 100 : 0;
+  const isFirst = index === 0;
+  const barColor = index < 3 ? ROW_BAR_COLORS[index] : '#2563eb';
 
   return (
     <div style={{
-      padding: '0.75rem 0',
-      borderBottom: '1px solid var(--border-hairline)',
-      animation: 'fadeInUp 0.25s ease-out both',
+      padding: '0.875rem 1rem',
+      marginBottom: '0.5rem',
+      borderRadius: 'var(--radius-lg)',
+      background: 'var(--bg-canvas)',
+      border: '1px solid var(--border-subtle)',
+      animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1) both',
       animationDelay: `${index * 0.03}s`,
+      transition: 'border-color var(--transition-fast)',
     }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.375rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0 }}>
           {index < 3 ? (
             <div style={{
-              width: 26, height: 26, borderRadius: 'var(--radius-xs)',
+              width: 34, height: 34, borderRadius: '10px',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: index === 0 ? 'rgba(228, 242, 34, 0.12)' : 'var(--bg-obsidian)',
-              border: `1px solid ${index === 0 ? 'rgba(228, 242, 34, 0.3)' : 'var(--border-hairline)'}`,
-              color: MEDAL_COLORS[index],
+              background: isFirst ? 'var(--accent-brand)' : 'var(--bg-muted)',
+              color: isFirst ? 'var(--accent-brand-fg)' : barColor,
               flexShrink: 0,
             }}>
-              <Trophy size={13} />
+              <Trophy size={15} />
             </div>
           ) : (
             <div style={{
-              width: 26, height: 26, borderRadius: 'var(--radius-xs)',
+              width: 34, height: 34, borderRadius: '10px',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: 'var(--bg-carbon)',
-              border: '1px solid var(--border-hairline)',
-              color: 'var(--text-fog)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.6875rem', fontWeight: 600,
+              background: 'var(--bg-muted)',
+              color: 'var(--text-muted)',
+              fontSize: '0.75rem', fontWeight: 600,
+              fontVariantNumeric: 'tabular-nums',
               flexShrink: 0,
             }}>
               {index + 1}
             </div>
           )}
           <div style={{ minWidth: 0 }}>
-            <div style={{ fontWeight: 500, fontSize: '0.8125rem', color: 'var(--text-paper)' }} className="truncate">
+            <div style={{ fontWeight: 500, fontSize: '0.875rem', color: 'var(--text-primary)' }} className="truncate">
               {label}
             </div>
-            {sublabel && <div className="font-mono text-xs text-secondary">{sublabel}</div>}
+            {sublabel && <div className="text-xs text-secondary" style={{ marginTop: '0.1rem' }}>{sublabel}</div>}
           </div>
         </div>
-        <span className="font-mono" style={{ fontWeight: 600, fontSize: '0.8125rem', color: index === 0 ? 'var(--accent-electric)' : 'var(--text-paper)', flexShrink: 0, marginLeft: '1rem' }}>
+        <span style={{
+          fontWeight: 600,
+          fontSize: '0.8125rem',
+          color: 'var(--text-primary)',
+          fontVariantNumeric: 'tabular-nums',
+          flexShrink: 0,
+          marginLeft: '1rem',
+        }}>
           {displayValue || value}
         </span>
       </div>
-      <div style={{ height: 3, borderRadius: 1.5, background: 'var(--bg-subtle)', overflow: 'hidden' }}>
+      <div style={{ height: 5, borderRadius: 'var(--radius-full)', background: 'var(--bg-muted)', overflow: 'hidden' }}>
         <div style={{
           height: '100%',
           width: `${pct}%`,
-          borderRadius: 1.5,
-          background: index === 0 ? 'var(--accent-electric)' : 'var(--text-ash)',
-          opacity: Math.max(0.3, 1 - index * 0.07),
-          transition: 'width 0.5s ease-out',
+          borderRadius: 'var(--radius-full)',
+          background: barColor,
+          opacity: Math.max(0.45, 1 - index * 0.06),
+          transition: 'width 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
         }} />
       </div>
     </div>
@@ -128,14 +139,15 @@ export const Rankings = () => {
       <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {activeTab === 'orgaos' && (
-        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
-          <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Administração Pública</div>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.25rem', color: 'var(--text-paper)' }}>
-            Top Órgãos Compradores
-          </h3>
-          <p className="font-mono text-xs text-secondary" style={{ marginBottom: '1rem' }}>
-            Classificação por quantidade de editais emitidos
-          </p>
+        <Card style={{ animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+          <div style={{ marginBottom: '1rem' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+              Top Órgãos Compradores
+            </h3>
+            <p className="text-xs text-secondary" style={{ marginTop: '0.125rem' }}>
+              Classificação por quantidade de editais emitidos
+            </p>
+          </div>
           {loading ? renderLoading() : orgaos.length === 0 ? (
             <EmptyState title="Sem dados de órgãos" />
           ) : (
@@ -155,14 +167,15 @@ export const Rankings = () => {
       )}
 
       {activeTab === 'fornecedores' && (
-        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
-          <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Mercado Privado</div>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.25rem', color: 'var(--text-paper)' }}>
-            Top Fornecedores por Volume
-          </h3>
-          <p className="font-mono text-xs text-secondary" style={{ marginBottom: '1rem' }}>
-            Classificação por montante total contratado (R$)
-          </p>
+        <Card style={{ animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+          <div style={{ marginBottom: '1rem' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+              Top Fornecedores por Volume
+            </h3>
+            <p className="text-xs text-secondary" style={{ marginTop: '0.125rem' }}>
+              Classificação por montante total contratado (R$)
+            </p>
+          </div>
           {loading ? renderLoading() : fornecedores.length === 0 ? (
             <EmptyState title="Sem dados de fornecedores" />
           ) : (
@@ -182,14 +195,15 @@ export const Rankings = () => {
       )}
 
       {activeTab === 'estados' && (
-        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
-          <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Federação</div>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.25rem', color: 'var(--text-paper)' }}>
-            Ranking por Estado (UF)
-          </h3>
-          <p className="font-mono text-xs text-secondary" style={{ marginBottom: '1rem' }}>
-            Unidades Federativas com maior volume de editais
-          </p>
+        <Card style={{ animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+          <div style={{ marginBottom: '1rem' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+              Ranking por Estado (UF)
+            </h3>
+            <p className="text-xs text-secondary" style={{ marginTop: '0.125rem' }}>
+              Unidades Federativas com maior volume de editais
+            </p>
+          </div>
           {loading ? renderLoading() : estados.length === 0 ? (
             <EmptyState title="Sem dados regionais" />
           ) : (
@@ -209,14 +223,15 @@ export const Rankings = () => {
       )}
 
       {activeTab === 'modalidades' && (
-        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
-          <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Procedimentos Legais</div>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.25rem', color: 'var(--text-paper)' }}>
-            Ranking por Modalidade
-          </h3>
-          <p className="font-mono text-xs text-secondary" style={{ marginBottom: '1rem' }}>
-            Modalidades de contratação mais frequentes
-          </p>
+        <Card style={{ animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+          <div style={{ marginBottom: '1rem' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+              Ranking por Modalidade
+            </h3>
+            <p className="text-xs text-secondary" style={{ marginTop: '0.125rem' }}>
+              Modalidades de contratação mais frequentes
+            </p>
+          </div>
           {loading ? renderLoading() : modalidades.length === 0 ? (
             <EmptyState title="Sem dados de modalidades" />
           ) : (

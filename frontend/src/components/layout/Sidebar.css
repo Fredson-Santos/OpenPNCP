@@ -1,31 +1,37 @@
 .sidebar {
   width: var(--sidebar-width);
   min-height: 100vh;
-  background: var(--bg-void);
-  border-right: 1px solid var(--border-hairline);
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  padding: 1.25rem 0.75rem;
+  padding: 1rem 0.75rem;
   position: sticky;
   top: 0;
   z-index: 50;
   transition: transform var(--transition-base);
 }
 
-/* --- Header / Logo --- */
+/* --- Header / Workspace Selector (BeUI Style) --- */
 
 .sidebar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.5rem;
-  margin-bottom: 1.75rem;
+  padding: 0.5rem 0.625rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.sidebar-header:hover {
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.75rem;
 }
 
 .sidebar-logo__icon {
@@ -34,11 +40,9 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-obsidian);
-  border: 1px solid var(--border-hairline);
-  color: var(--accent-electric);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: #ffffff;
+  color: #151515;
   flex-shrink: 0;
 }
 
@@ -48,43 +52,40 @@
 }
 
 .sidebar-logo__name {
-  font-size: 0.9375rem;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  color: var(--text-paper);
-  line-height: 1.2;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  line-height: 1.25;
 }
 
 .sidebar-logo__tag {
-  font-family: var(--font-mono);
   font-size: 0.625rem;
-  font-weight: 500;
-  color: var(--text-ash);
+  font-weight: 600;
+  color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
 }
 
 .sidebar-close {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--border-hairline);
-  background: var(--bg-carbon);
-  color: var(--text-ash);
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-muted);
+  color: var(--text-muted);
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   transition: all var(--transition-fast);
 }
 
 .sidebar-close:hover {
-  background: var(--bg-obsidian);
-  color: var(--text-paper);
-  border-color: var(--border-strong);
+  color: var(--text-primary);
 }
 
-/* --- Navigation --- */
+/* --- Navigation (BeUI Workspace Nav) --- */
 
 .sidebar-nav {
   display: flex;
@@ -96,51 +97,36 @@
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-sm);
-  color: var(--text-ash);
-  font-size: 0.8125rem;
+  gap: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
   font-weight: 500;
   transition: all var(--transition-fast);
   position: relative;
-  border: 1px solid transparent;
 }
 
 .nav-item:hover {
-  background: var(--bg-carbon);
-  color: var(--text-paper);
-  border-color: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
 }
 
 .nav-item.active {
-  background: var(--bg-obsidian);
-  color: var(--text-paper);
-  border-color: var(--border-hairline);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
 }
 
 .nav-item.active .nav-item__icon {
-  color: var(--accent-electric);
-}
-
-.nav-item.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2px;
-  height: 14px;
-  border-radius: 1px;
-  background: var(--accent-electric);
+  color: var(--accent-action);
 }
 
 .nav-item__icon {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  color: var(--text-ash);
+  color: var(--text-muted);
   transition: color var(--transition-fast);
 }
 
@@ -148,14 +134,14 @@
   white-space: nowrap;
 }
 
-/* --- Footer --- */
+/* --- Footer (BeUI Chartreuse Acid Signature #d5ff66) --- */
 
 .sidebar-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.625rem 0.5rem;
-  border-top: 1px solid var(--border-hairline);
+  padding: 0.75rem 0.625rem 0.25rem;
+  border-top: 1px solid var(--border-subtle);
   margin-top: 1rem;
 }
 
@@ -163,25 +149,28 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  color: var(--text-ash);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
 .sidebar-footer__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-pulse-green);
-  box-shadow: 0 0 6px rgba(39, 166, 68, 0.6);
-  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--chart-green);
 }
 
 .sidebar-footer__version {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  color: var(--text-fog);
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  background: var(--accent-brand);
+  color: var(--accent-brand-fg);
+  font-size: 0.6875rem;
+  font-weight: 600;
 }
 
 /* --- Mobile Toggle --- */
@@ -192,12 +181,12 @@
   top: 1rem;
   left: 1rem;
   z-index: 100;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-sm);
-  background: var(--bg-carbon);
-  color: var(--text-paper);
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--text-primary);
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -205,15 +194,14 @@
 }
 
 .sidebar-mobile-toggle:hover {
-  background: var(--bg-obsidian);
-  border-color: var(--border-strong);
+  background: var(--bg-surface-elevated);
 }
 
 .sidebar-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(8, 9, 10, 0.75);
+  background: rgba(21, 21, 21, 0.75);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 40;

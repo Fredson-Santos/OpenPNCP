@@ -12,27 +12,26 @@ export const EmptyState = ({ icon, title, description }) => {
       justifyContent: 'center',
       padding: '3rem 2rem',
       textAlign: 'center',
-      animation: 'fadeInUp 0.3s ease-out',
+      animation: 'fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
     }}>
       <div style={{
         width: 48,
         height: 48,
-        borderRadius: 'var(--radius-sm)',
-        background: 'var(--bg-obsidian)',
-        border: '1px solid var(--border-hairline)',
+        borderRadius: 'var(--radius-md)',
+        background: 'var(--bg-muted)',
+        border: '1px solid var(--border-subtle)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: '1rem',
-        color: 'var(--accent-electric)',
-        boxShadow: 'var(--shadow-inset-top)',
+        color: 'var(--text-muted)',
       }}>
         <IconComponent size={22} />
       </div>
       <h3 style={{
         fontSize: '0.9375rem',
         fontWeight: 600,
-        color: 'var(--text-paper)',
+        color: 'var(--text-primary)',
         letterSpacing: '-0.02em',
         marginBottom: '0.375rem',
       }}>
@@ -40,7 +39,7 @@ export const EmptyState = ({ icon, title, description }) => {
       </h3>
       <p style={{
         fontSize: '0.8125rem',
-        color: 'var(--text-ash)',
+        color: 'var(--text-muted)',
         maxWidth: 360,
         lineHeight: 1.5,
       }}>

@@ -1,10 +1,10 @@
 .tabs {
   display: flex;
   gap: 0.25rem;
-  padding: 0.25rem;
-  background: var(--bg-void);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-sm);
+  padding: 0.3rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
   margin-bottom: 1.5rem;
   overflow-x: auto;
 }
@@ -13,11 +13,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.4rem 0.875rem;
-  border-radius: var(--radius-xs);
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-md);
   border: 1px solid transparent;
   background: transparent;
-  color: var(--text-ash);
+  color: var(--text-muted);
   font-size: 0.8125rem;
   font-weight: 500;
   font-family: inherit;
@@ -27,15 +27,14 @@
 }
 
 .tabs__item:hover {
-  color: var(--text-paper);
-  background: var(--bg-carbon);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .tabs__item--active {
-  color: var(--text-paper);
-  background: var(--bg-obsidian);
-  border-color: var(--border-hairline);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  background: var(--bg-muted);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 .tabs__icon {
@@ -44,18 +43,16 @@
 }
 
 .tabs__count {
-  font-family: var(--font-mono);
   font-size: 0.6875rem;
-  font-weight: 500;
-  padding: 0.1rem 0.45rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
   border-radius: var(--radius-full);
-  background: var(--bg-subtle);
-  color: var(--text-mist);
-  border: 1px solid var(--border-hairline);
+  background: var(--bg-muted);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .tabs__item--active .tabs__count {
-  background: var(--accent-electric-bg);
-  color: var(--accent-electric);
-  border-color: rgba(228, 242, 34, 0.25);
+  background: var(--accent-action);
+  color: var(--accent-action-fg);
 }

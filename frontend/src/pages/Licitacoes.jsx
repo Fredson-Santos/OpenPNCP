@@ -90,26 +90,30 @@ export const Licitacoes = () => {
 
   return (
     <div>
-      <div className="page-header">
-        <div className="eyebrow">Repositório // Editais Oficiais</div>
-        <h1>Licitações</h1>
-        <p>
-          Pesquise e monitore editais em todo o país com rastreabilidade detalhada.{' '}
-          {total > 0 && <span className="font-mono text-lime" style={{ fontWeight: 600 }}>{total.toLocaleString('pt-BR')} registros</span>}
-        </p>
+      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
+        <div>
+          <div className="eyebrow">Repositório // Editais Oficiais</div>
+          <h1>Licitações</h1>
+          <p>Pesquise e monitore editais em todo o país com rastreabilidade detalhada.</p>
+        </div>
+        {total > 0 && (
+          <Badge color="lime">
+            {total.toLocaleString('pt-BR')} registros
+          </Badge>
+        )}
       </div>
 
-      <Card style={{ marginBottom: '1.25rem', padding: '0.875rem 1rem' }}>
+      <Card style={{ marginBottom: '1rem', padding: '0.875rem 1rem' }}>
         <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.625rem' }}>
           <div style={{ flex: 1, position: 'relative' }}>
             <Search
               size={15}
               style={{
                 position: 'absolute',
-                left: '0.875rem',
+                left: '0.9rem',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                color: 'var(--text-fog)',
+                color: 'var(--text-muted)',
                 pointerEvents: 'none',
               }}
             />
@@ -119,7 +123,7 @@ export const Licitacoes = () => {
               placeholder="Buscar por objeto, órgão ou número de controle..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              style={{ paddingLeft: '2.5rem' }}
+              style={{ paddingLeft: '2.5rem', background: 'var(--bg-canvas)' }}
             />
           </div>
           <button type="submit" className="btn btn-primary">
@@ -168,7 +172,7 @@ export const Licitacoes = () => {
                       style={{
                         display: 'block',
                         fontWeight: 500,
-                        color: 'var(--text-paper)',
+                        color: 'var(--text-primary)',
                         marginBottom: '0.25rem',
                         lineHeight: 1.4,
                       }}
@@ -180,19 +184,19 @@ export const Licitacoes = () => {
                       alignItems: 'center',
                       gap: '0.375rem',
                       fontSize: '0.75rem',
-                      color: 'var(--text-ash)',
+                      color: 'var(--text-muted)',
                     }}>
-                      <Building2 size={12} style={{ color: 'var(--text-fog)' }} />
+                      <Building2 size={12} />
                       <span className="truncate" style={{ maxWidth: 380 }}>{lic.orgao_nome}</span>
                       {lic.numero_controle_pncp && (
-                        <span className="font-mono text-tertiary" style={{ fontSize: '0.6875rem' }}>
+                        <span style={{ fontSize: '0.6875rem', opacity: 0.75 }}>
                           • {lic.numero_controle_pncp}
                         </span>
                       )}
                     </div>
                   </td>
                   <td>
-                    <span className="font-mono text-secondary" style={{ fontWeight: 600, fontSize: '0.75rem' }}>
+                    <span className="text-secondary" style={{ fontWeight: 600, fontSize: '0.75rem' }}>
                       {lic.uf || '—'}
                     </span>
                   </td>
@@ -202,7 +206,7 @@ export const Licitacoes = () => {
                     </span>
                   </td>
                   <td>
-                    <span className="font-mono" style={{ fontWeight: 600, color: 'var(--text-paper)' }}>
+                    <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontVariantNumeric: 'tabular-nums' }}>
                       {lic.valor_total_estimado ? formatCurrency(lic.valor_total_estimado) : '—'}
                     </span>
                   </td>
@@ -217,10 +221,10 @@ export const Licitacoes = () => {
                       alignItems: 'center',
                       gap: '0.375rem',
                       fontSize: '0.75rem',
-                      color: 'var(--text-ash)',
-                      fontFamily: 'var(--font-mono)',
+                      color: 'var(--text-muted)',
+                      fontVariantNumeric: 'tabular-nums',
                     }}>
-                      <Calendar size={12} style={{ color: 'var(--text-fog)' }} />
+                      <Calendar size={12} />
                       {formatDate(lic.data_publicacao_pncp)}
                     </div>
                   </td>
@@ -228,7 +232,7 @@ export const Licitacoes = () => {
                     <Link
                       to={`/licitacoes/${lic.id}`}
                       className="btn btn-ghost btn-sm"
-                      style={{ padding: '0.3rem', color: 'var(--text-fog)' }}
+                      style={{ padding: '0.35rem', color: 'var(--text-muted)' }}
                       aria-label="Ver detalhes"
                     >
                       <ExternalLink size={14} />

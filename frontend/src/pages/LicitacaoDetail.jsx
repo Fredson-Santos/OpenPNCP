@@ -85,8 +85,8 @@ export const LicitacaoDetail = () => {
   if (!licitacao) {
     return (
       <div>
-        <Link to="/licitacoes" className="btn btn-ghost" style={{ marginBottom: '1rem' }}>
-          <ArrowLeft size={15} /> Voltar
+        <Link to="/licitacoes" className="btn btn-outline btn-sm" style={{ marginBottom: '1rem' }}>
+          <ArrowLeft size={14} /> Voltar
         </Link>
         <Card>
           <EmptyState title="Licitação não encontrada" description="O registro pode ter sido removido ou o link é inválido." />
@@ -104,18 +104,18 @@ export const LicitacaoDetail = () => {
 
   return (
     <div>
-      <Link to="/licitacoes" className="btn btn-ghost" style={{ marginBottom: '1.25rem', padding: '0.375rem 0' }}>
-        <ArrowLeft size={15} /> Voltar para busca
+      <Link to="/licitacoes" className="btn btn-outline btn-sm" style={{ marginBottom: '1.25rem' }}>
+        <ArrowLeft size={14} /> Voltar para busca
       </Link>
 
       <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div>
           <div className="eyebrow">Edital Oficial // Identificador PNCP</div>
-          <h1 className="font-mono" style={{ fontSize: '1.375rem', letterSpacing: '-0.025em' }}>
+          <h1 style={{ fontSize: '1.375rem', letterSpacing: '-0.025em' }}>
             {licitacao.numero_controle || 'Licitação'}
           </h1>
           <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
-            <Building2 size={13} style={{ color: 'var(--text-fog)' }} /> {licitacao.orgao?.nome}
+            <Building2 size={14} /> {licitacao.orgao?.nome}
           </p>
         </div>
         <a
@@ -132,11 +132,11 @@ export const LicitacaoDetail = () => {
       <div className="grid grid-cols-4" style={{ marginBottom: '1.5rem' }}>
         <Card>
           <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Modalidade</div>
-          <div style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--text-paper)' }}>{licitacao.modalidade || '—'}</div>
+          <div style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--text-primary)' }}>{licitacao.modalidade || '—'}</div>
         </Card>
         <Card>
           <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Valor Estimado</div>
-          <div className="font-mono" style={{ fontWeight: 700, color: 'var(--accent-electric)', fontSize: '0.9375rem' }}>
+          <div style={{ fontWeight: 600, color: 'var(--chart-green)', fontSize: '0.9375rem', fontVariantNumeric: 'tabular-nums' }}>
             {licitacao.valor_estimado ? formatCurrency(licitacao.valor_estimado) : '—'}
           </div>
         </Card>
@@ -148,8 +148,8 @@ export const LicitacaoDetail = () => {
         </Card>
         <Card>
           <div className="eyebrow" style={{ marginBottom: '0.25rem' }}>Publicação</div>
-          <div className="font-mono" style={{ fontWeight: 500, fontSize: '0.8125rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-            <Calendar size={13} style={{ color: 'var(--text-fog)' }} />
+          <div style={{ fontWeight: 500, fontSize: '0.8125rem', display: 'flex', alignItems: 'center', gap: '0.375rem', fontVariantNumeric: 'tabular-nums' }}>
+            <Calendar size={13} style={{ color: 'var(--text-muted)' }} />
             {formatDate(licitacao.data_publicacao)}
           </div>
         </Card>
@@ -158,19 +158,19 @@ export const LicitacaoDetail = () => {
       <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {activeTab === 'info' && (
-        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
+        <Card style={{ animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1)' }}>
           <div className="eyebrow" style={{ marginBottom: '0.5rem' }}>Descrição do Processo</div>
-          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--text-paper)' }}>
+          <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--text-primary)' }}>
             Objeto da Licitação
           </h3>
-          <p style={{ color: 'var(--text-bone)', lineHeight: 1.6, fontSize: '0.875rem' }}>
+          <p style={{ color: 'var(--text-muted)', lineHeight: 1.65, fontSize: '0.875rem' }}>
             {licitacao.objeto}
           </p>
 
           {licitacao.data_encerramento && (
-            <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-hairline)' }}>
+            <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)' }}>
               <span className="eyebrow" style={{ marginRight: '0.5rem' }}>Data de Encerramento:</span>
-              <span className="font-mono" style={{ fontWeight: 500, fontSize: '0.8125rem', color: 'var(--text-paper)' }}>
+              <span style={{ fontWeight: 500, fontSize: '0.8125rem', color: 'var(--text-primary)' }}>
                 {formatDate(licitacao.data_encerramento)}
               </span>
             </div>
@@ -179,7 +179,7 @@ export const LicitacaoDetail = () => {
       )}
 
       {activeTab === 'itens' && (
-        <Card style={{ animation: 'fadeInUp 0.25s ease-out', padding: 0, overflow: 'hidden' }}>
+        <Card style={{ animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1)', padding: 0, overflow: 'hidden' }}>
           {itens.length === 0 ? (
             <EmptyState icon={Package} title="Nenhum item registrado" description="Este edital não possui itens detalhados." />
           ) : (
@@ -196,12 +196,12 @@ export const LicitacaoDetail = () => {
                 <tbody>
                   {itens.map((item) => (
                     <tr key={item.id}>
-                      <td style={{ color: 'var(--text-paper)' }}>{item.descricao}</td>
-                      <td className="font-mono" style={{ textAlign: 'right', color: 'var(--text-ash)' }}>{item.quantidade}</td>
-                      <td className="font-mono" style={{ textAlign: 'right', color: 'var(--text-ash)' }}>
+                      <td style={{ color: 'var(--text-primary)' }}>{item.descricao}</td>
+                      <td style={{ textAlign: 'right', color: 'var(--text-muted)', fontVariantNumeric: 'tabular-nums' }}>{item.quantidade}</td>
+                      <td style={{ textAlign: 'right', color: 'var(--text-muted)', fontVariantNumeric: 'tabular-nums' }}>
                         {item.valor_unitario != null ? formatCurrency(item.valor_unitario) : '—'}
                       </td>
-                      <td className="font-mono" style={{ textAlign: 'right', fontWeight: 600, color: 'var(--text-paper)' }}>
+                      <td style={{ textAlign: 'right', fontWeight: 600, color: 'var(--text-primary)', fontVariantNumeric: 'tabular-nums' }}>
                         {item.valor_total != null ? formatCurrency(item.valor_total) : '—'}
                       </td>
                     </tr>
@@ -214,7 +214,7 @@ export const LicitacaoDetail = () => {
       )}
 
       {activeTab === 'arquivos' && (
-        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
+        <Card style={{ animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1)' }}>
           {arquivos.length === 0 ? (
             <EmptyState icon={Paperclip} title="Nenhum arquivo anexo" description="Não foram encontrados documentos para esta licitação." />
           ) : (
@@ -228,22 +228,28 @@ export const LicitacaoDetail = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.75rem',
+                    gap: '0.875rem',
                     padding: '0.75rem 1rem',
-                    border: '1px solid var(--border-hairline)',
-                    borderRadius: 'var(--radius-sm)',
-                    background: 'var(--bg-obsidian)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: 'var(--radius-lg)',
+                    background: 'var(--bg-canvas)',
                     transition: 'all var(--transition-fast)',
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--border-strong)'; e.currentTarget.style.background = 'var(--bg-surface-hover)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-hairline)'; e.currentTarget.style.background = 'var(--bg-obsidian)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.14)'; e.currentTarget.style.background = 'var(--bg-surface-hover)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; e.currentTarget.style.background = 'var(--bg-canvas)'; }}
                 >
-                  <Paperclip size={15} style={{ color: 'var(--accent-electric)', flexShrink: 0 }} />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 500, fontSize: '0.8125rem', color: 'var(--text-paper)' }} className="truncate">{arq.nome}</div>
-                    {arq.tipo && <div className="font-mono text-xs text-secondary">{arq.tipo}</div>}
+                  <div style={{
+                    width: 36, height: 36, borderRadius: '10px',
+                    background: 'var(--bg-muted)', color: 'var(--text-muted)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                  }}>
+                    <Paperclip size={15} />
                   </div>
-                  <ExternalLink size={13} style={{ color: 'var(--text-fog)', flexShrink: 0 }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 500, fontSize: '0.875rem', color: 'var(--text-primary)' }} className="truncate">{arq.nome}</div>
+                    {arq.tipo && <div className="text-xs text-secondary">{arq.tipo}</div>}
+                  </div>
+                  <ExternalLink size={14} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
                 </a>
               ))}
             </div>
@@ -252,7 +258,7 @@ export const LicitacaoDetail = () => {
       )}
 
       {activeTab === 'historico' && (
-        <Card style={{ animation: 'fadeInUp 0.25s ease-out' }}>
+        <Card style={{ animation: 'fadeInUp 0.25s cubic-bezier(0.22, 1, 0.36, 1)' }}>
           {historico.length === 0 ? (
             <EmptyState icon={History} title="Sem histórico registrado" description="Nenhuma fase foi registrada para esta licitação." />
           ) : (

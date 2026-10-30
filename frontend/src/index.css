@@ -1,120 +1,116 @@
 /* ==========================================================================
-   Precision Craft UI — Tokens & Base Styles
-   Fusão: Linear (Midnight Precision) + Vercel (Typography) + shadcn/ui (Architecture)
+   BeUI Craft UI — Motion-First Dark Design System (Calibração Oficial beui.dev)
    ========================================================================== */
 
 :root {
-  /* Surface Hierarchy (Linear Dark Depth) */
-  --bg-void: #08090a;            /* Canvas base / full-bleed background */
-  --bg-carbon: #0f1011;          /* Card surfaces, toolbars, sidebar panels */
-  --bg-obsidian: #161718;        /* Popovers, modals, elevated dropdowns */
-  --bg-subtle: #1c1d1f;          /* Inset panels, active list items */
-  --bg-surface-hover: #212326;    /* Hover highlight on dark elements */
+  /* Surfaces & Neutral Charcoal Stack */
+  --bg-canvas: #151515;            /* Canvas de fundo oficial beui.dev (rgb: 21, 21, 21) */
+  --bg-surface: #1c1c1c;           /* Cards e linhas de listas (rgb: 28, 28, 28) */
+  --bg-surface-elevated: #242424;  /* Elementos elevados / Hover ativo (rgb: 36, 36, 36) */
+  --bg-muted: #262626;             /* Rail oculto & containers secundários (rgb: 38, 38, 38) */
+  --bg-surface-hover: #222222;     /* Realce suave sob cursor */
 
-  /* Hairline Borders & Dividers */
-  --border-hairline: rgba(255, 255, 255, 0.08); /* 1px structural edge */
-  --border-subtle: #23252a;                      /* Card outlines, separators */
-  --border-muted: #383b3f;                       /* Focus / active outlines */
-  --border-strong: rgba(255, 255, 255, 0.16);   /* Contrast borders */
+  /* Borders & Dividers */
+  --border-subtle: #262626;        /* Borda hairline padrão 1px */
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-divider: rgba(255, 255, 255, 0.06);
+  --border-focus-active: #0084ff;  /* Borda ativa de foco/seleção (Electric Blue) */
 
-  /* Text & Contrast Hierarchy (Vercel-Inspired Strict Shades) */
-  --text-paper: #ffffff;      /* Headings, high emphasis, hero type */
-  --text-bone: #e5e5e6;       /* Primary body copy, button labels */
-  --text-mist: #d0d6e0;       /* Secondary headings, subtle labels */
-  --text-ash: #8a8f98;        /* Muted descriptions, inactive icons */
-  --text-fog: #62666d;        /* Captions, micro-copy, placeholders */
-  --text-disabled: #3e4249;   /* Disabled states */
+  /* Text & Contrast */
+  --text-primary: #ededed;         /* Texto de alto contraste (rgb: 237, 237, 237) */
+  --text-secondary: #8e8e93;       /* Subtítulos, descrições, horas e metadados */
+  --text-tertiary: #636366;        /* Placeholders e micro-copy */
+  --text-muted: #8e8e93;
 
-  /* Semantic & Electric Accents */
-  --accent-electric: #e4f222;       /* Linear Acid Lime: primary CTA, active dot */
-  --accent-electric-hover: #d2df1d; /* Acid Lime hover */
-  --accent-electric-fg: #08090a;    /* High contrast dark text on acid lime */
-  --accent-electric-glow: rgba(228, 242, 34, 0.2);
-  --accent-electric-bg: rgba(228, 242, 34, 0.08);
+  /* BeUI Accents */
+  --accent-action: #0084ff;        /* Electric Blue de botões primários e toggles */
+  --accent-action-hover: #0073e6;
+  --accent-action-fg: #ffffff;
+  --accent-action-glow: rgba(0, 132, 255, 0.25);
+  --accent-action-bg: rgba(0, 132, 255, 0.12);
 
-  --accent-pulse-green: #27a644;    /* Success / connected indicator */
-  --accent-pulse-green-bg: rgba(39, 166, 68, 0.12);
-  --accent-pulse-green-border: rgba(39, 166, 68, 0.25);
+  --accent-brand: #d5ff66;         /* Chartreuse Acid de identificação BeUI */
+  --accent-brand-fg: #172000;
+  --accent-brand-bg: rgba(213, 255, 102, 0.14);
+  --accent-brand-border: rgba(213, 255, 102, 0.3);
 
-  --accent-coral-red: #eb5757;      /* Destructive action / error */
-  --accent-coral-red-bg: rgba(235, 87, 87, 0.12);
-  --accent-coral-red-border: rgba(235, 87, 87, 0.25);
+  /* Data Visualization & Chart Palette */
+  --chart-blue: #2563eb;           /* Team / Primary */
+  --chart-sky: #38bdf8;            /* Business / Target 2 */
+  --chart-teal: #0d9488;           /* Enterprise / Target High */
+  --chart-amber: #fbbf24;          /* Starter / Target Base */
+  --chart-green: #10b981;          /* Positive Projection */
 
-  --accent-orange: #f59e0b;
-  --accent-orange-bg: rgba(245, 158, 11, 0.12);
-  --accent-orange-border: rgba(245, 158, 11, 0.25);
+  /* Studio Themed Accents */
+  --studio-amber-bg: #2c210d;
+  --studio-amber-icon: #fbbf24;
+  --studio-rose-bg: #36141f;
+  --studio-rose-icon: #fb7185;
+  --studio-cobalt-bg: #0f2238;
+  --studio-cobalt-icon: #60a5fa;
+  --studio-emerald-bg: #0c291e;
+  --studio-emerald-icon: #34d399;
 
-  --accent-signal-teal: #02b8cc;    /* Informational tag / link */
-  --accent-signal-teal-bg: rgba(2, 184, 204, 0.12);
-  --accent-signal-teal-border: rgba(2, 184, 204, 0.25);
-
-  --accent-iris: #6366f1;           /* Category tag / badge accent */
-  --accent-iris-bg: rgba(99, 102, 241, 0.12);
-  --accent-iris-border: rgba(99, 102, 241, 0.25);
-
-  /* Legacy & Semantic Bindings */
-  --bg-color: var(--bg-void);
-  --bg-surface: var(--bg-carbon);
-  --panel-bg: rgba(15, 16, 17, 0.85);
-  --panel-bg-solid: var(--bg-carbon);
-  --panel-border: var(--border-hairline);
+  /* Legacy & Semantic Aliases */
+  --bg-color: var(--bg-canvas);
+  --panel-bg: rgba(28, 28, 28, 0.88);
+  --panel-bg-solid: var(--bg-surface);
+  --panel-border: var(--border-subtle);
   --panel-border-hover: var(--border-strong);
 
-  --text-primary: var(--text-paper);
-  --text-secondary: var(--text-ash);
-  --text-tertiary: var(--text-fog);
+  --accent-blue: var(--accent-action);
+  --accent-blue-hover: var(--accent-action-hover);
+  --accent-blue-glow: var(--accent-action-glow);
+  --accent-blue-bg: var(--accent-action-bg);
 
-  --accent-blue: var(--accent-iris);
-  --accent-blue-hover: #818cf8;
-  --accent-blue-glow: rgba(99, 102, 241, 0.2);
-  --accent-blue-bg: var(--accent-iris-bg);
+  --accent-green: var(--chart-green);
+  --accent-green-glow: rgba(16, 185, 129, 0.2);
+  --accent-green-bg: var(--studio-emerald-bg);
 
-  --accent-green: var(--accent-pulse-green);
-  --accent-green-glow: rgba(39, 166, 68, 0.2);
-  --accent-green-bg: var(--accent-pulse-green-bg);
+  --accent-red: #ef4444;
+  --accent-red-glow: rgba(239, 68, 68, 0.2);
+  --accent-red-bg: var(--studio-rose-bg);
 
-  --accent-red: var(--accent-coral-red);
-  --accent-red-glow: rgba(235, 87, 87, 0.2);
-  --accent-red-bg: var(--accent-coral-red-bg);
+  --accent-orange: var(--chart-amber);
+  --accent-orange-glow: rgba(251, 191, 36, 0.2);
+  --accent-orange-bg: var(--studio-amber-bg);
 
   --accent-purple: #a855f7;
   --accent-purple-glow: rgba(168, 85, 247, 0.2);
-  --accent-purple-bg: rgba(168, 85, 247, 0.12);
+  --accent-purple-bg: rgba(168, 85, 247, 0.14);
 
-  --accent-cyan: var(--accent-signal-teal);
-  --accent-cyan-bg: var(--accent-signal-teal-bg);
+  --accent-cyan: var(--chart-sky);
+  --accent-cyan-bg: rgba(56, 189, 248, 0.12);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #e4f222 0%, #27a644 100%);
-  --gradient-secondary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-  --gradient-success: linear-gradient(135deg, #27a644 0%, #02b8cc 100%);
-  --gradient-danger: linear-gradient(135deg, #eb5757 0%, #f59e0b 100%);
-  --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  --gradient-primary: linear-gradient(135deg, #0084ff 0%, #2563eb 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #fb7185 100%);
 
-  /* Radii (shadcn/ui Precision Hierarchy) */
-  --radius-xs: 3px;     /* Keyboard shortcuts, micro tags */
-  --radius-sm: 6px;     /* Buttons, inputs, control elements */
-  --radius-md: 10px;    /* Nested containers, dropdowns */
-  --radius-lg: 12px;    /* Cards, panels, modals */
-  --radius-xl: 16px;    /* Large outer containers */
-  --radius-full: 9999px;/* Status pills */
+  /* Radii (BeUI Signature Geometry) */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;              /* Caixas de ícone internas (rounded-xl) */
+  --radius-lg: 16px;              /* Padrão para linhas de lista e cards (rounded-2xl) */
+  --radius-xl: 20px;
+  --radius-2xl: 24px;             /* Contêineres de widget / shells (rounded-3xl) */
+  --radius-full: 9999px;          /* Botões de ação, toggles e badges (rounded-full) */
 
-  /* Hairline Precision Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.8);
-  --shadow-hairline: 0 0 0 1px var(--border-hairline);
-  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 4px 16px -2px rgba(0, 0, 0, 0.5);
-  --shadow-inset-top: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
 
-  /* Typography Fonts */
-  --font-sans: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'Geist Mono', 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* Fonts */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --sidebar-width: 250px;
-  --transition-fast: 120ms cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-base: 200ms cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* Motion & Spring Transitions */
+  --sidebar-width: 256px;
+  --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-base: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 380ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* --- Animations --- */
@@ -129,11 +125,6 @@
   100% { background-position: 200% 0; }
 }
 
-@keyframes pulseGlow {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.95); }
-}
-
 /* --- Reset & Base --- */
 
 *, *::before, *::after {
@@ -144,16 +135,15 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--bg-void);
+  background-color: var(--bg-canvas);
   color-scheme: dark;
 }
 
 body {
-  background-color: var(--bg-void);
-  color: var(--text-bone);
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   line-height: 1.5;
-  letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -163,21 +153,21 @@ a {
   text-decoration: none;
 }
 
-/* --- Scrollbar Hairline --- */
+/* --- Scrollbar --- */
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-void);
+  background: var(--bg-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-xs);
+  background: var(--bg-muted);
+  border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: #363636;
 }
 
 /* --- Layout --- */
@@ -185,7 +175,7 @@ a {
 .layout {
   display: flex;
   min-height: 100vh;
-  background-color: var(--bg-void);
+  background-color: var(--bg-canvas);
 }
 
 .main-content {
@@ -194,7 +184,7 @@ a {
   max-width: 1320px;
   margin: 0 auto;
   width: 100%;
-  animation: fadeInUp 0.3s ease-out;
+  animation: fadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (max-width: 768px) {
@@ -203,248 +193,239 @@ a {
   }
 }
 
-/* --- Page Header (Vercel Style Typographic Impact) --- */
+/* --- Page Header (BeUI Style) --- */
 
 .page-header {
-  margin-bottom: 2rem;
-  position: relative;
+  margin-bottom: 1.75rem;
 }
 
 .page-header h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1.2;
-  color: var(--text-paper);
-  margin-bottom: 0.375rem;
+  font-size: 1.625rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
 }
 
 .page-header p {
-  color: var(--text-ash);
+  color: var(--text-muted);
   font-size: 0.875rem;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
-/* Eyebrow Label (Geist Mono Uppercase) */
+/* Overline / Kicker (BeUI Spec: 10px-11px uppercase tracking-[0.16em]) */
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.071em;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-ash);
+  color: var(--text-muted);
   margin-bottom: 0.375rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* --- Card (Hairline Precision) --- */
+/* --- Card (BeUI Surface #1c1c1c + Hairline #262626 + rounded-2xl 16px) --- */
 
 .card {
-  background: var(--bg-carbon);
-  border: 1px solid var(--border-hairline);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  padding: 1.375rem 1.5rem;
   position: relative;
   transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .card:hover {
-  border-color: var(--border-strong);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .card-glass {
-  background: rgba(15, 16, 17, 0.7);
+  background: var(--panel-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 .card-elevated {
-  background: var(--bg-carbon);
-  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.5);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .card-elevated:hover {
-  transform: translateY(-1px);
-  border-color: var(--border-strong);
-  background: #121315;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* --- Badge (Precision Pills) --- */
+/* --- Badge (BeUI Pills) --- */
 
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  padding: 0.15rem 0.625rem;
+  padding: 0.2rem 0.65rem;
   border-radius: var(--radius-full);
-  font-family: var(--font-mono);
   font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   border: 1px solid transparent;
 }
 
 .badge-blue {
-  color: #818cf8;
-  background: var(--accent-iris-bg);
-  border-color: var(--accent-iris-border);
+  color: var(--studio-cobalt-icon);
+  background: var(--studio-cobalt-bg);
+  border-color: rgba(96, 165, 250, 0.2);
 }
 
 .badge-green {
-  color: var(--accent-pulse-green);
-  background: var(--accent-pulse-green-bg);
-  border-color: var(--accent-pulse-green-border);
+  color: var(--studio-emerald-icon);
+  background: var(--studio-emerald-bg);
+  border-color: rgba(52, 211, 153, 0.2);
 }
 
 .badge-red {
-  color: var(--accent-coral-red);
-  background: var(--accent-coral-red-bg);
-  border-color: var(--accent-coral-red-border);
+  color: var(--studio-rose-icon);
+  background: var(--studio-rose-bg);
+  border-color: rgba(251, 113, 133, 0.2);
 }
 
 .badge-orange {
-  color: var(--accent-orange);
-  background: var(--accent-orange-bg);
-  border-color: var(--accent-orange-border);
+  color: var(--studio-amber-icon);
+  background: var(--studio-amber-bg);
+  border-color: rgba(251, 191, 36, 0.2);
 }
 
 .badge-purple {
   color: #c084fc;
-  background: rgba(168, 85, 247, 0.12);
-  border-color: rgba(168, 85, 247, 0.25);
+  background: rgba(168, 85, 247, 0.14);
+  border-color: rgba(168, 85, 247, 0.22);
 }
 
-.badge-lime {
-  color: var(--accent-electric);
-  background: var(--accent-electric-bg);
-  border-color: rgba(228, 242, 34, 0.3);
+.badge-lime,
+.badge-brand {
+  color: var(--accent-brand-fg);
+  background: var(--accent-brand);
+  font-weight: 600;
 }
 
-/* --- Buttons (Acid Lime CTA & Obsidian Hairline) --- */
+/* --- Buttons (BeUI Rounded-Full Pills & Electric Blue #0084ff) --- */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.45rem 1rem;
-  border-radius: var(--radius-sm);
+  padding: 0.5rem 1.125rem;
+  border-radius: var(--radius-full);
   font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
   border: 1px solid transparent;
   background: transparent;
-  color: var(--text-bone);
+  color: var(--text-primary);
   white-space: nowrap;
   user-select: none;
 }
 
 .btn:disabled {
-  opacity: 0.4;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 .btn:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
-/* Primary CTA: Electric Acid Lime */
+/* Primary Action: Electric Blue (#0084ff) */
 .btn-primary {
-  background: var(--accent-electric);
-  color: var(--accent-electric-fg);
-  font-weight: 600;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  border-color: transparent;
+  background: var(--accent-action);
+  color: var(--accent-action-fg);
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--accent-electric-hover);
-  box-shadow: 0 0 16px var(--accent-electric-glow);
+  background: var(--accent-action-hover);
 }
 
-/* Secondary: Obsidian Hairline */
+/* Secondary / Neutral Pill (#1c1c1c + border #262626) */
 .btn-outline {
-  background: var(--bg-carbon);
-  border: 1px solid var(--border-hairline);
-  color: var(--text-bone);
-  box-shadow: var(--shadow-inset-top);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
 }
 
 .btn-outline:hover:not(:disabled) {
-  background: var(--bg-obsidian);
-  border-color: var(--border-strong);
-  color: var(--text-paper);
+  background: var(--bg-surface-elevated);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--text-primary);
 }
 
-/* Ghost Button */
+/* Ghost Pill */
 .btn-ghost {
-  color: var(--text-ash);
+  color: var(--text-muted);
 }
 
 .btn-ghost:hover:not(:disabled) {
-  color: var(--text-paper);
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .btn-sm {
-  padding: 0.3rem 0.65rem;
+  padding: 0.35rem 0.75rem;
   font-size: 0.75rem;
 }
 
-/* --- Form Controls (Precision Hairline Inputs) --- */
+/* --- Inputs & Selects (BeUI #1c1c1c / #262626 + Electric Blue Focus) --- */
 
 .input {
   width: 100%;
-  padding: 0.5rem 0.875rem;
-  background: var(--bg-carbon);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-sm);
-  color: var(--text-paper);
+  padding: 0.55rem 0.9rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
   font-size: 0.8125rem;
   font-family: inherit;
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .input::placeholder {
-  color: var(--text-fog);
+  color: var(--text-muted);
 }
 
 .input:focus {
-  border-color: rgba(228, 242, 34, 0.8);
-  box-shadow: 0 0 0 1px rgba(228, 242, 34, 0.4);
+  border-color: var(--border-focus-active);
+  background: var(--bg-surface-hover);
 }
 
 .select {
   appearance: none;
   width: 100%;
-  padding: 0.5rem 2.25rem 0.5rem 0.875rem;
-  background: var(--bg-carbon) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%238a8f98' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") right 0.75rem center / 1rem no-repeat;
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-sm);
-  color: var(--text-paper);
+  padding: 0.55rem 2.25rem 0.55rem 0.9rem;
+  background: var(--bg-surface) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%238e8e93' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") right 0.75rem center / 1rem no-repeat;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
   font-size: 0.8125rem;
   font-family: inherit;
   outline: none;
   cursor: pointer;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color var(--transition-fast);
 }
 
 .select:focus {
-  border-color: rgba(228, 242, 34, 0.8);
-  box-shadow: 0 0 0 1px rgba(228, 242, 34, 0.4);
+  border-color: var(--border-focus-active);
 }
 
 /* --- Grid --- */
 
 .grid {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
@@ -462,13 +443,13 @@ a {
   .grid-cols-2 { grid-template-columns: 1fr; }
 }
 
-/* --- Table (Linear Data Architecture) --- */
+/* --- Table (BeUI List Surface #1c1c1c & Hairline #262626) --- */
 
 .table-container {
   overflow-x: auto;
-  border: 1px solid var(--border-hairline);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  background: var(--bg-carbon);
+  background: var(--bg-surface);
 }
 
 .table {
@@ -479,21 +460,20 @@ a {
 
 .table th {
   text-align: left;
-  padding: 0.75rem 1rem;
-  color: var(--text-ash);
-  font-family: var(--font-mono);
-  font-weight: 500;
+  padding: 0.875rem 1.125rem;
+  color: var(--text-muted);
+  font-weight: 600;
   font-size: 0.6875rem;
   text-transform: uppercase;
-  letter-spacing: 0.071em;
-  background: var(--bg-obsidian);
-  border-bottom: 1px solid var(--border-hairline);
+  letter-spacing: 0.08em;
+  background: var(--bg-canvas);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .table td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border-hairline);
-  color: var(--text-bone);
+  padding: 0.875rem 1.125rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
   transition: background-color var(--transition-fast);
 }
 
@@ -502,38 +482,44 @@ a {
 }
 
 .table tr:hover td {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-surface-hover);
 }
 
-/* --- Skeleton (Dark Shimmer) --- */
+/* --- Skeleton (BeUI Muted Shimmer) --- */
 
 .skeleton {
-  background: linear-gradient(90deg, #121315 25%, rgba(255, 255, 255, 0.05) 50%, #121315 75%);
+  background: linear-gradient(90deg, var(--bg-surface) 25%, var(--bg-muted) 50%, var(--bg-surface) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
 }
 
 /* --- Utility Classes --- */
 
 .font-mono {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .text-secondary {
-  color: var(--text-ash);
+  color: var(--text-muted);
 }
 
 .text-tertiary {
-  color: var(--text-fog);
+  color: var(--text-tertiary);
 }
 
 .text-paper {
-  color: var(--text-paper);
+  color: var(--text-primary);
 }
 
-.text-lime {
-  color: var(--accent-electric);
+.text-lime,
+.text-brand {
+  color: var(--accent-brand);
+}
+
+.text-accent {
+  color: var(--accent-action);
 }
 
 .text-sm {
@@ -555,20 +541,5 @@ a {
 }
 
 .animate-in {
-  animation: fadeInUp 0.3s ease-out both;
-}
-
-/* Keyboard Shortcut Tag */
-kbd, .kbd {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.1rem 0.375rem;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  color: var(--text-ash);
-  background: var(--bg-obsidian);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-xs);
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

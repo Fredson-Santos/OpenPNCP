@@ -16,10 +16,10 @@ export const Pagination = ({ page, totalPages, onPageChange }) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: '0.25rem',
+      gap: '0.375rem',
       marginTop: '1.5rem',
-      fontFamily: 'var(--font-mono)',
       fontSize: '0.75rem',
+      fontVariantNumeric: 'tabular-nums',
     }}>
       <button
         className="btn btn-outline btn-sm"
@@ -33,7 +33,7 @@ export const Pagination = ({ page, totalPages, onPageChange }) => {
       {start > 1 && (
         <>
           <button className="btn btn-outline btn-sm" onClick={() => onPageChange(1)}>1</button>
-          {start > 2 && <span style={{ color: 'var(--text-fog)', padding: '0 0.25rem' }}>…</span>}
+          {start > 2 && <span style={{ color: 'var(--text-muted)', padding: '0 0.25rem' }}>…</span>}
         </>
       )}
 
@@ -42,7 +42,7 @@ export const Pagination = ({ page, totalPages, onPageChange }) => {
           key={p}
           className={`btn btn-sm ${p === page ? 'btn-primary' : 'btn-outline'}`}
           onClick={() => onPageChange(p)}
-          style={{ minWidth: 32, padding: '0.3rem 0.5rem' }}
+          style={{ minWidth: 34, padding: '0.35rem 0.6rem' }}
         >
           {p}
         </button>
@@ -50,7 +50,7 @@ export const Pagination = ({ page, totalPages, onPageChange }) => {
 
       {end < totalPages && (
         <>
-          {end < totalPages - 1 && <span style={{ color: 'var(--text-fog)', padding: '0 0.25rem' }}>…</span>}
+          {end < totalPages - 1 && <span style={{ color: 'var(--text-muted)', padding: '0 0.25rem' }}>…</span>}
           <button className="btn btn-outline btn-sm" onClick={() => onPageChange(totalPages)}>{totalPages}</button>
         </>
       )}

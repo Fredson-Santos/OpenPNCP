@@ -7,7 +7,7 @@ import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
 } from 'recharts';
 import {
-  FileText, DollarSign, Building2, MapPin
+  FileText, DollarSign, Building2
 } from 'lucide-react';
 
 const formatCurrency = (val) => {
@@ -17,22 +17,23 @@ const formatCurrency = (val) => {
   return `R$ ${val}`;
 };
 
+const BEUI_CHART_COLORS = ['#2563eb', '#38bdf8', '#0d9488', '#fbbf24', '#10b981'];
+
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: 'var(--bg-obsidian)',
-      border: '1px solid var(--border-hairline)',
-      borderRadius: 'var(--radius-sm)',
+      background: 'var(--bg-surface)',
+      border: '1px solid var(--border-subtle)',
+      borderRadius: 'var(--radius-md)',
       padding: '0.5rem 0.75rem',
       fontSize: '0.75rem',
       boxShadow: 'var(--shadow-md)',
-      fontFamily: 'var(--font-mono)',
     }}>
-      <div style={{ color: 'var(--text-ash)', marginBottom: '0.25rem' }}>
+      <div style={{ color: 'var(--text-muted)', marginBottom: '0.2rem' }}>
         {label ? label.split('-').reverse().join('/') : ''}
       </div>
-      <div style={{ fontWeight: 600, color: 'var(--accent-electric)' }}>
+      <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
         {payload[0].value.toLocaleString('pt-BR')} licitações
       </div>
     </div>
@@ -79,13 +80,13 @@ export const Home = () => {
         </div>
         {stats?.ultima_atualizacao && (
           <div style={{
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--text-ash)',
+            color: 'var(--text-muted)',
             fontSize: '0.75rem',
-            background: 'var(--bg-carbon)',
-            padding: '0.35rem 0.75rem',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--border-hairline)',
+            fontWeight: 500,
+            background: 'var(--bg-surface)',
+            padding: '0.35rem 0.85rem',
+            borderRadius: 'var(--radius-full)',
+            border: '1px solid var(--border-subtle)',
           }}>
             Última sync: {new Date(stats.ultima_atualizacao).toLocaleDateString('pt-BR')}
           </div>
@@ -93,11 +94,11 @@ export const Home = () => {
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-3" style={{ marginBottom: '1.5rem' }}>
+        <div className="grid grid-cols-3" style={{ marginBottom: '1.25rem' }}>
           <SkeletonCard /><SkeletonCard /><SkeletonCard />
         </div>
       ) : (
-        <div className="grid grid-cols-3" style={{ marginBottom: '1.5rem' }}>
+        <div className="grid grid-cols-3" style={{ marginBottom: '1.25rem' }}>
           <StatCard
             icon={<FileText size={18} />}
             label="Licitações"
@@ -126,28 +127,28 @@ export const Home = () => {
         <Card variant="elevated">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div>
-              <div className="eyebrow" style={{ marginBottom: '0.125rem' }}>Série Histórica</div>
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-paper)', letterSpacing: '-0.02em' }}>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                 Evolução Diária
               </h3>
+              <p className="text-xs text-secondary" style={{ marginTop: '0.125rem' }}>Licitações publicadas por dia</p>
             </div>
-            <span className="font-mono text-xs text-secondary">Últimos 30 dias</span>
+            <span className="badge badge-blue">30 dias</span>
           </div>
           <div style={{ width: '100%', height: 240 }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={evolucao.slice(-30)} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorQtd" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--accent-electric)" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="var(--accent-electric)" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#0084ff" stopOpacity={0.28} />
+                    <stop offset="95%" stopColor="#0084ff" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="2 2" stroke="var(--border-hairline)" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-subtle)" vertical={false} />
                 <XAxis
                   dataKey="data"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: 'var(--text-fog)', fontSize: 10, fontFamily: 'var(--font-mono)' }}
+                  tick={{ fill: 'var(--text-muted)', fontSize: 11 }}
                   tickFormatter={(val) => {
                     if (!val) return '';
                     const [, m, d] = val.split('-');
@@ -157,14 +158,14 @@ export const Home = () => {
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: 'var(--text-fog)', fontSize: 10, fontFamily: 'var(--font-mono)' }}
+                  tick={{ fill: 'var(--text-muted)', fontSize: 11 }}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Area
                   type="monotone"
                   dataKey="quantidade"
-                  stroke="var(--accent-electric)"
-                  strokeWidth={1.5}
+                  stroke="#0084ff"
+                  strokeWidth={2}
                   fill="url(#colorQtd)"
                 />
               </AreaChart>
@@ -175,46 +176,55 @@ export const Home = () => {
         <Card variant="elevated">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div>
-              <div className="eyebrow" style={{ marginBottom: '0.125rem' }}>Distribuição Regional</div>
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-paper)', letterSpacing: '-0.02em' }}>
+              <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                 Top Estados
               </h3>
+              <p className="text-xs text-secondary" style={{ marginTop: '0.125rem' }}>Distribuição por volume de editais</p>
             </div>
-            <span className="font-mono text-xs text-secondary">por volume de editais</span>
+            <span className="text-xs text-secondary">UF</span>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
-            {rankEstados.map((est, idx) => (
-              <div key={est.uf}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.375rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <MapPin size={13} style={{ color: idx === 0 ? 'var(--accent-electric)' : 'var(--text-fog)' }} />
-                    <span style={{ fontWeight: 600, fontSize: '0.8125rem', fontFamily: 'var(--font-mono)', color: 'var(--text-bone)' }}>
-                      {est.uf}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {rankEstados.map((est, idx) => {
+              const barColor = BEUI_CHART_COLORS[idx % BEUI_CHART_COLORS.length];
+              return (
+                <div key={est.uf}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.375rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: 'var(--radius-full)',
+                        background: barColor,
+                        display: 'inline-block',
+                      }} />
+                      <span style={{ fontWeight: 500, fontSize: '0.8125rem', color: 'var(--text-primary)' }}>
+                        {est.uf}
+                      </span>
+                    </div>
+                    <span className="text-xs text-secondary" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                      <strong style={{ color: 'var(--text-primary)', fontWeight: 500 }}>
+                        {est.total_licitacoes.toLocaleString('pt-BR')}
+                      </strong>{' '}
+                      editais
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-secondary">
-                    {est.total_licitacoes.toLocaleString('pt-BR')} editais
-                  </span>
-                </div>
-                <div style={{
-                  height: 4,
-                  borderRadius: 2,
-                  background: 'var(--bg-subtle)',
-                  overflow: 'hidden',
-                }}>
                   <div style={{
-                    height: '100%',
-                    width: `${(est.total_licitacoes / maxEstado) * 100}%`,
-                    borderRadius: 2,
-                    background: idx === 0
-                      ? 'var(--accent-electric)'
-                      : 'var(--text-ash)',
-                    opacity: 1 - idx * 0.15,
-                    transition: 'width 0.4s ease-out',
-                  }} />
+                    height: 6,
+                    borderRadius: 'var(--radius-full)',
+                    background: 'var(--bg-muted)',
+                    overflow: 'hidden',
+                  }}>
+                    <div style={{
+                      height: '100%',
+                      width: `${(est.total_licitacoes / maxEstado) * 100}%`,
+                      borderRadius: 'var(--radius-full)',
+                      background: barColor,
+                      transition: 'width 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
+                    }} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Card>
       </div>
